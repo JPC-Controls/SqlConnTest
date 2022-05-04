@@ -1,0 +1,72 @@
+﻿<Window x:Class="SqlTesting.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:SqlTesting"
+        mc:Ignorable="d"
+        Title="OHD Logic SQL Configurinator" Height="700" Width="800" Loaded="Window_Loaded"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     FontFamily="{DynamicResource MaterialDesignFont}">
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding Server,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                <TextBlock Text="Server Name (ex: software-dev\ohdlogic)" Width="300"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding Username,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                <TextBlock Text="Username" Width="100"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                <TextBlock Text="Password" Width="100"/>
+            </StackPanel>
+            <StackPanel>
+                <CheckBox IsChecked="{Binding CustomConfigure,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Content="Custom Configuration"/>
+                <WrapPanel Height="150" Width="300" HorizontalAlignment="Left" Visibility="{Binding CustomConfigure, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <CheckBox IsChecked="{Binding UseNamedPipes,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Content="Named Pipes"/>
+                    <CheckBox IsChecked="{Binding Encrypted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Encrypted"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Connection Timeout:" Margin="0,0,4,0"/>
+                        <TextBox Text="{Binding ConnTimeout,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                    </StackPanel>
+                </WrapPanel>
+                <Separator Height="2"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Microsoft.Data.SqlClient"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="btnMDSConnect" Content="Connect" Click="btnMDSConnect_Click" IsEnabled="{Binding IsBusy,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InvertBooleanConverter}}" Margin="5"/>
+                    <!--<Button x:Name="btnMDSConnectNP" Content="Connect NP" Click="btnMDSConnectNP_Click" IsEnabled="{Binding IsBusy,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InvertBooleanConverter}}" Margin="5"/>-->
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="System.Data.SqlClient"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="btnSDSConnect" Content="Connect" Click="btnSDSConnect_Click" IsEnabled="{Binding IsBusy,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InvertBooleanConverter}}" Margin="5"/>
+                    <!--<Button x:Name="btnSDSConnectNP" Content="Connect NP" Click="btnSDSConnectNP_Click" IsEnabled="{Binding IsBusy,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InvertBooleanConverter}}" Margin="5"/>-->
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <TextBox Text="{Binding ConnectionString,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <!--<TextBox Text="{Binding ConnectionStringNP,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>-->
+            </StackPanel>
+            <StackPanel Visibility="{Binding Untested,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Text="Current Connection String Not Tested"/>
+            </StackPanel>
+            <StackPanel Visibility="{Binding ConnectionFound,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Text="Found"/>
+                <TextBlock Text="{Binding Timing}" Visibility="{Binding ConnectionFound,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </StackPanel>
+            <Grid Visibility="{Binding FailedConnection,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Text="{Binding FailedConnectionInfo}" TextWrapping="Wrap"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
