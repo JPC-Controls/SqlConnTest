@@ -42,14 +42,14 @@
             <StackPanel>
                 <TextBlock Text="Microsoft.Data.SqlClient"/>
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btnMDSConnect" Content="Connect" Click="btnMDSConnect_Click" IsEnabled="{Binding IsBusy,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InvertBooleanConverter}}" Margin="5"/>
+                    <Button x:Name="btnMDSConnect" Content="Connect" Click="BtnMDSConnect_Click" IsEnabled="{Binding IsBusy,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InvertBooleanConverter}}" Margin="5"/>
                     <!--<Button x:Name="btnMDSConnectNP" Content="Connect NP" Click="btnMDSConnectNP_Click" IsEnabled="{Binding IsBusy,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InvertBooleanConverter}}" Margin="5"/>-->
                 </StackPanel>
             </StackPanel>
             <StackPanel>
                 <TextBlock Text="System.Data.SqlClient"/>
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btnSDSConnect" Content="Connect" Click="btnSDSConnect_Click" IsEnabled="{Binding IsBusy,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InvertBooleanConverter}}" Margin="5"/>
+                    <Button x:Name="btnSDSConnect" Content="Connect" Click="BtnSDSConnect_Click" IsEnabled="{Binding IsBusy,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InvertBooleanConverter}}" Margin="5"/>
                     <!--<Button x:Name="btnSDSConnectNP" Content="Connect NP" Click="btnSDSConnectNP_Click" IsEnabled="{Binding IsBusy,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InvertBooleanConverter}}" Margin="5"/>-->
                 </StackPanel>
             </StackPanel>

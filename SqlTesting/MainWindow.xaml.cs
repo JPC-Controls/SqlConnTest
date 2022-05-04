@@ -54,17 +54,6 @@ namespace SqlTesting
                 OnPropertyChanged("ConnectionString");
             }
         }
-        private string _ConnectionStringNP;
-
-        public string ConnectionStringNP
-        {
-            get { return _ConnectionStringNP; }
-            set
-            {
-                _ConnectionStringNP = value;
-                OnPropertyChanged("ConnectionStringNP");
-            }
-        }
 
         private string _Server = @"eng-lsimoni\ohdlogic";
 
@@ -113,7 +102,7 @@ namespace SqlTesting
                 OnPropertyChanged("ConnectionFound");
             }
         }
-        private string _Timing;
+        private string _Timing = String.Empty;
 
         public string Timing
         {
@@ -174,7 +163,7 @@ namespace SqlTesting
         }
         public bool FailedConnection => !Untested && !ConnectionFound;
 
-        private string _FailedConnectionInfo;
+        private string _FailedConnectionInfo = String.Empty;
 
         public string FailedConnectionInfo
         {
@@ -206,7 +195,7 @@ namespace SqlTesting
             UpdateConnectionString();
         }
         private readonly Stopwatch sw = new();
-        private void btnSDSConnect_Click(object sender, RoutedEventArgs e)
+        private void BtnSDSConnect_Click(object sender, RoutedEventArgs e)
         {
             Task.Run(() =>
             {
@@ -216,10 +205,6 @@ namespace SqlTesting
                 sw.Start();
                 var con = new SystemDataSqlClient();
                 ConnectionFound = ((FailedConnectionInfo = con.Connect(ConnectionString)) == "good");
-                if (!ConnectionFound)
-                {
-
-                }
                 sw.Stop();
                 IsBusy = false;
                 Timing = $"{sw.Elapsed.TotalSeconds:0.###}";
@@ -227,7 +212,7 @@ namespace SqlTesting
             });
         }
 
-        private void btnMDSConnect_Click(object sender, RoutedEventArgs e)
+        private void BtnMDSConnect_Click(object sender, RoutedEventArgs e)
         {
             Task.Run(() =>
             {
@@ -238,10 +223,6 @@ namespace SqlTesting
                 var con = new MicrosoftDataSqlClientTest();
                 FailedConnectionInfo = con.Connect(ConnectionString);
                 ConnectionFound = ((FailedConnectionInfo = con.Connect(ConnectionString)) == "good");
-                if (!ConnectionFound)
-                {
-
-                }
                 sw.Stop();
                 IsBusy = false;
                 Timing = $"{sw.Elapsed.TotalSeconds:0.###}";
